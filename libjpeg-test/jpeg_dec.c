@@ -253,7 +253,7 @@ int main(int argc, char* argv[])
 		usec = usec + 1000000;
 	}
 
-	msec = usec / 1000.0;
+	msec = (sec * 1000) + (usec / 1000.0);
 
 	demo_info("decode succeeds in %.3fms.\n", msec);
 
