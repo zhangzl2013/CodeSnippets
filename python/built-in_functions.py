@@ -6,9 +6,6 @@
 # return Boolean values:
 #     all(iterable)
 #     any(iterable)
-#     callable(object)
-#     isinstance(object, classinfo)
-#     issubclass(class, classinfo)
 #
 # integer convertion:
 #     bin(x)
@@ -20,7 +17,7 @@
 #     @classmethod
 #     @property
 #
-# culculate:
+# math culculation:
 #     max()
 #     min()
 #     sum()
@@ -29,93 +26,127 @@
 #     pow()
 #     round(number[, ndigits])
 #
-# data type:
-#     list()
-#     set()
-#     frozenset()
-#     bool()
-#     float()
-#     tuple()
-#     dict()
-#     complex()
+# Data types:
+#     int()       # numbers.Integral (int)
+#     bool()      # numbers.Integral (bool)
+#     float()     # numbers.Real (float)
+#     complex()   # numbers.Complex (complex)
 #
-# attributes:
-#     delattr()
-#     hasattr()
-#     getattr()
-#     setattr()
-#     
-# Unicode convertion:
-#     ord()
-#     chr()
+#     N/A         # Immutable sequences : Strings
+#     tuple()     # Immutable sequences : Tuples
+#     bytes()     # Immutable sequences : Bytes
+#
+#     list()      # Mutable sequences: Lists
+#     bytearray() # Mutable sequences: Byte Arrays
+#
+#     set()       # Set types: Sets
+#     frozenset() # Set types: Frozen sets
+#
+#     dict()      # Mappings: Dictionaries
+#
+# Unicode convertion: (Unicode code range: U+0 to U+10FFFF)
+#     ord()       # Unicode character  ->  Unicode code
+#     chr()       # Unicode code       ->  Unicode character
 #
 # Iteration:
 #     iter()
-#     filter()
-#     map()
 #     reversed()
 #     next()
+#     enumerate()
+#
+# High-order functions: (Functions that act on or return other functions)
+#     sorted()
+#     filter()
+#     map()
 #
 # Utils:
 #     hash()
-#     id()
 #     zip()
 #
-# Others:
+# Objects related: (Reflection and Introspection)
+#     id()
+#     object()
+#     type()                        # Reflection-enabling function
+#     super()
+#
+#     str()
+#     repr()
 #     ascii()
-#     bytearray()
-#     bytes()
-#     chr()
+#
+#     dir()                         # Reflection-enabling function
+#     globals()
+#     locals()
+#
+#     vars()
+#     memoryview()
+#     __import__()
+#
+#     callable(object)              # Reflection-enabling function
+#     isinstance(object, classinfo) # Reflection-enabling function
+#     issubclass(class, classinfo)
+#
+#  # attributes:
+#     delattr()
+#     hasattr()
+#     getattr()                     # Reflection-enabling function
+#     setattr()
+#     
+#
+# Sequence helpers:
+#     len()
+#     slice()
+#     range()
+#
+# Dynamic execution:
 #     compile()
-#     dir()
-#     enumerate()
 #     eval()
 #     exec()
+#
+# String operation:
 #     format()
-#     globals()
-#     help()
-#     input()
-#     len()
-#     locals()
-#     memoryview()
-#     object()
-#     open()
+#
+# Interactive:
 #     print()
-#     range()
-#     repr()
-#     slice()
-#     sorted()
-#     str()
-#     super()
-#     type()
-#     vars()
-#     __import__()
+#     input()
+#     help()
+#
+# Others:
+#     open()
 
-## abs(x)
 
-print(abs(1))
-# 1
-
-print(abs(-1))
-# 1
-
-print(abs(-1.1))
-# 1.1
-
-print(abs(1+1j))
-# 1.4142135623730951
-
-print(abs(complex(1,1)))
-# 1.4142135623730951
+# Introspection vs Reflection
+#
+# In computing, type introspection is the ability of a program to *examine*
+# the type or properties of an object *at runtime*. Some programming languages
+# possess this capability.
+#
+# Introspection should not be confused with reflection, which goes a step
+# further and is the ability for a program to *manipulate* the values, meta-
+# data, properties and/or functions of an object at runtime. Some programming
+# languages, e.g. Java, also possess that capability.
+#                        -- [https://en.wikipedia.org/wiki/Type_introspection]
+#
+# In computer science, reflection is the ability of a computer program to
+# examine, introspect, and modify its own structure and behavior at runtime.
+#         -- [https://en.wikipedia.org/wiki/Reflection_(computer_programming)]
+#
 
 
 
-#### return Boolean values:
-####     all(iterable)
-####     any(iterable)
-####     callable(object)
-####     isinstance(object, classinfo)
-####     issubclass(class, classinfo)
+
+
+
+
+
+
+##################################################################
+# return Boolean values:
+#     all(iterable)
+#     any(iterable)
+##################################################################
+
+
+#
 
 ## all(iterable)
 
@@ -126,10 +157,10 @@ print(abs(complex(1,1)))
 #             return False
 #     return True
 
-print(all([1,2,3]))
+all([1,2,3])
 # True
 
-print(all([1,0,2]))
+all([1,0,2])
 # False
 
 
@@ -142,47 +173,245 @@ print(all([1,0,2]))
 #            return True
 #     return False
 
-print(any([1,2,3]))
+any([1,2,3])
 # True
 
-print(any([1,0,2]))
+any([1,0,2])
 # True
 
-print(any([0,0,0]))
+any([0,0,0])
 # False
 
 
-#### integer convertion
-####     bin(x)
-####     hex(x)
-####     oct(x)
-
-## ascii(object)
-print(ascii([1,2,3]))
-# '[1, 2, 3]'
+##################################################################
+# integer convertion:
+#     bin(x)
+#     hex(x)
+#     oct(x)
+##################################################################
 
 
-print(ascii(False))
-# 'False'
-
-class a:
-    pass
-
-print(ascii(a))
-# "<class '__main__.a'>"
-
-
-## bin(x)
-print(bin(3))
+#                           bin(x)
+bin(3)
 # '0b11'
 
-print(bin(-10))
+bin(-10)
 # '-0b1010'
 
+#                           hex(x)
+
+#                           oct(x)
+
+##################################################################
+# decorators:
+#     @staticmethod
+#     @classmethod
+#     @property
+##################################################################
 
 
+#
 #### @classmethod vs @staticmethod
 
 ### @classmethod
 
 ### @staticmethod
+##################################################################
+# math culculation:
+#     max()
+#     min()
+#     sum()
+#     abs()
+#     divmod()
+#     pow()
+#     round(number[, ndigits])
+##################################################################
+
+
+#
+## abs(x)
+
+abs(1)
+# 1
+
+abs(-1)
+# 1
+
+abs(-1.1)
+# 1.1
+
+abs(1+1j)
+# 1.4142135623730951
+
+abs(complex(1,1))
+# 1.4142135623730951
+
+sum([1,2,3])
+# 6
+sum([1,2,3],1)
+# 7
+
+##################################################################
+# Data types:
+#     int()       # numbers.Integral (int)
+#     bool()      # numbers.Integral (bool)
+#     float()     # numbers.Real (float)
+#     complex()   # numbers.Complex (complex)
+#
+#     N/A         # Immutable sequences : Strings
+#     tuple()     # Immutable sequences : Tuples
+#     bytes()     # Immutable sequences : Bytes
+#
+#     list()      # Mutable sequences: Lists
+#     bytearray() # Mutable sequences: Byte Arrays
+#
+#     set()       # Set types: Sets
+#     frozenset() # Set types: Frozen sets
+#
+#     dict()      # Mappings: Dictionaries
+##################################################################
+
+
+#
+##################################################################
+# Unicode convertion: (Unicode code range: U+0 to U+10FFFF)
+#     ord()       # Unicode character  ->  Unicode code
+#     chr()       # Unicode code       ->  Unicode character
+##################################################################
+
+
+##################################################################
+# Iteration:
+#     iter()
+#     reversed()
+#     next()
+#     enumerate()
+##################################################################
+
+# Iterable vs Iterator
+#
+# Iterable: has __iter__() method, can not be passed to next()
+# Iterator: has __next__() method, can be passed to next()
+
+#                      iter()
+#                      next()
+t = (1,2)
+i = iter(t)
+type(t)
+# output: <class 'tuple'>
+type(i)
+# output: <class 'tuple_iterator'>
+next(t)
+# output:
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# TypeError: 'tuple' object is not an iterator
+next(i)
+# 1
+next(i)
+# 2
+next(i)
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+# StopIteration
+
+
+##################################################################
+# High-order functions: (Functions that act on or return other functions)
+#     sorted()
+#     filter()
+#     map()
+##################################################################
+
+
+##################################################################
+# Utils:
+#     hash()
+#     zip()
+##################################################################
+
+
+##################################################################
+# Objects related: (Reflection and Introspection)
+#     id()
+#     object()
+#     type()                        # Reflection-enabling function
+#     super()
+#
+#     str()
+#     repr()
+#     ascii()
+#
+#     dir()                         # Reflection-enabling function
+#     globals()
+#     locals()
+#
+#     vars()
+#     memoryview()
+#     __import__()
+#
+#     callable(object)              # Reflection-enabling function
+#     isinstance(object, classinfo) # Reflection-enabling function
+#     issubclass(class, classinfo)
+#
+#  # attributes:
+#     delattr()
+#     hasattr()
+#     getattr()                     # Reflection-enabling function
+#     setattr()
+##################################################################
+
+
+#     
+#
+## ascii(object)
+ascii([1,2,3])
+# '[1, 2, 3]'
+
+
+ascii(False)
+# 'False'
+
+class a:
+    pass
+
+ascii(a)
+# "<class '__main__.a'>"
+
+##################################################################
+# Sequence helpers:
+#     len()
+#     slice()
+#     range()
+##################################################################
+
+
+##################################################################
+# Dynamic execution:
+#     compile()
+#     eval()
+#     exec()
+##################################################################
+
+
+#     [https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile-in-python]
+
+##################################################################
+# String operation:
+#     format()
+##################################################################
+
+
+##################################################################
+# Interactive:
+#     print()
+#     input()
+#     help()
+#
+##################################################################
+
+
+##################################################################
+# Others:
+#     open()
+##################################################################
