@@ -1,0 +1,4 @@
+config UIO_TEST
+	tristate "UIO testing driver"
+	help
+          UIO testing driver
