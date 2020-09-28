@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# simple bogus information of CentOS-5.3
+
+# saner programming env: these switches turn some bugs into errors
+set -o errexit -o pipefail -o noclobber -o nounset
+
+# -allow a command to fail with !' side effect on errexit
+# -use return value from ${PIPESTATUS[0]}, because ! hosed $?
+! getopt --test > /dev/null 
+if [[ ${PIPESTATUS[0]} -ne 4 ]]; then
+	echo 'I am sorry, `getopt --test` failed in this environment.'
+	exit 1
+fi
+
+OPTIONS=asnrvmpio
+LONGOPTS=all,kernel-name,nodename,kernel-release,kernel-version,machine,processor,hardware-platform,operating-system,help,version
+
+# -regarding ! and PIPESTATUS see above
+# -temporarily store output to be able to check for errors
+# -activate quoting/enhanced mode (e.g. by writing out "--options")
+# -pass arguments only via   -- "$@"   to separate them correctly
+! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
+if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+    # e.g. return value is 1
+    #  then getopt has complained about wrong arguments to stdout
+    exit 2
+fi
+# read getopt's output this way to handle the quoting right:
+eval set -- "$PARSED"
+
+kernel_name=""
+nodename=""
+kernel_release=""
+kernel_version=""
+machine=""
+processor=""
+hardware_platform=""
+operationg_system=""
+
+# now enjoy the options in order and nicely split until we see --
+while true; do
+    case "$1" in
+	'-a' | '--all')
+	kernel_name="Linux"
+	nodename="localhost.localdomain"
+	kernel_release="2.6.18-128.el5"
+	kernel_version="#1 SMP Wed Jan 21 10:41:14 EST 2009"
+	machine="x86_64"
+	processor="x86_64"
+	hardware_platform="x86_64"
+	operationg_system="GNU/Linux"
+	shift
+	;;
+
+	'-s' | '--kernel-name')
+	kernel_name="Linux"
+	shift
+	;;
+
+	'-n' | '--nodename')
+	nodename="localhost.localdomain"
+	shift
+	;;
+
+	'-r' | '--kernel-release')
+	kernel_release="2.6.18-128.el5"
+	shift
+	;;
+
+	'-v' | '--kernel-version')
+	kernel_version="#1 SMP Wed Jan 21 10:41:14 EST 2009"
+	shift
+	;;
+
+	'-m' | '--machine')
+	machine="x86_64"
+	shift
+	;;
+
+	'-p' | '--processor')
+	processor="x86_64"
+	shift
+	;;
+
+	'-i' | '--hardware-platform')
+	hardware_platform="x86_64"
+	shift
+	;;
+
+	'-o' | '--operating-system')
+	operationg_system="GNU/Linux"
+	shift
+	;;
+
+	'--help' | '--version')
+	/bin/uname $@
+	shift
+	;;
+
+	--)
+	tester=$kernel_name$nodename$kernel_release$kernel_version$machine$processor$hardware_platform$operationg_system
+	if [ -z $tester ]; then
+		kernel_name="Linux"
+	fi
+	shift
+	break
+	;;
+    esac
+done
+
+echo $kernel_name $nodename $kernel_release $kernel_version $machine $processor $hardware_platform $operationg_system
+
+exit 0
