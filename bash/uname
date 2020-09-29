@@ -100,7 +100,7 @@ while true; do
 
 	--)
 	tester=$kernel_name$nodename$kernel_release$kernel_version$machine$processor$hardware_platform$operationg_system
-	if [ -z $tester ]; then
+	if [ -z "$tester" ]; then
 		kernel_name="Linux"
 	fi
 	shift
