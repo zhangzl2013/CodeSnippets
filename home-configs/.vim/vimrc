@@ -39,6 +39,7 @@ nnoremap <C-i> :<C-U> exe "call HighlightAdd(".v:count.",'\\<".expand('<cword>')
 "   Added cscope database /workingpath/cscope.out
 "   Press ENTER or type command to continue
 set nocscopeverbose
+set cscopetag
 
 if filereadable("cscope.out")
 	cs add cscope.out
