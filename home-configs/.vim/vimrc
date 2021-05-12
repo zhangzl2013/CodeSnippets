@@ -1,0 +1,72 @@
+syntax on
+filetype on
+
+" To resolve the issue that vim over ssh to a linux system is taking a very
+" long time at startup
+" https://stackoverflow.com/questions/17402020/how-to-disable-clipboard-in-vim
+set clipboard=exclude:.*
+
+" enable highlight search
+set hlsearch
+
+" setup the status line:
+set statusline=%f%=(%{&ff})\ row:%l/%L\ col:%v\ [%p%%]
+set laststatus=2
+
+
+"
+"                shortkeys
+"
+"
+nnoremap <F6>  :Tlist<CR>
+nnoremap <F7>  :ls<CR>:buffer<Space>
+nnoremap <F9>  :cs f s<Space>
+nnoremap <F10> :cs f g<Space>
+nnoremap <C-n> :tabn<CR>
+nnoremap <C-p> :tabp<CR>
+" shortkey for simple_highlight plugin
+" usage: <n><C-i> to high light word on current curser
+nnoremap <C-i> :<C-U> exe "call HighlightAdd(".v:count.",'\\<".expand('<cword>')."\\>')"<CR>
+
+
+"
+"                cscope settings
+"
+
+" If 'cscopeverbose' is not set (the default), messages will not be printed
+" indicating success or failure when adding a cscope database.
+" This fix the annoying warning:
+"   Added cscope database /workingpath/cscope.out
+"   Press ENTER or type command to continue
+set nocscopeverbose
+
+if filereadable("cscope.out")
+	cs add cscope.out
+endif
+
+"   's'   symbol: find all references to the token under cursor
+"   'g'   global: find global definition(s) of the token under cursor
+"   'c'   calls:  find all calls to the function name under cursor
+"   't'   text:   find all instances of the text under cursor
+"   'e'   egrep:  egrep search for the word under cursor
+"   'f'   file:   open the filename under cursor
+"   'i'   includes: find files that include the filename under cursor
+"   'd'   called: find functions that function under cursor calls
+nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>f :cs find f <C-R>=expand("<cword>")<CR><CR>
+nmap <C-\>i :cs find i ^<C-R>=expand("<cword>")<CR>$<CR>
+nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
+nmap <C-w><C-\>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-w><C-\>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-w><C-\>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-w><C-\>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-w><C-\>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-w><C-\>f :scs find f <C-R>=expand("<cword>")<CR><CR>
+nmap <C-w><C-\>i :scs find i ^<C-R>=expand("<cword>")<CR>$<CR>
+nmap <C-w><C-\>d :scs find d <C-R>=expand("<cword>")<CR><CR>
+
